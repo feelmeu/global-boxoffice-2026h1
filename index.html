@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2026年上半年全球电影票房排行榜</title>
+<meta name="theme-color" content="#1a1a2e">
 <style>
 @font-face {
   font-family: 'WorkSans';
@@ -26,16 +27,16 @@
 }
 
 :root {
-  --bg: #faf8f5;
-  --bg2: #f0ece6;
-  --ink: #2a1f1a;
-  --muted: #8a7a6e;
-  --rule: #e0d8ce;
-  --accent: #c0392b;
-  --accent2: #2c6e49;
+  --bg: #f5f3f0;
+  --ink: #1a1a2e;
+  --muted: #6b6b7e;
+  --rule: #d8d4ce;
+  --mono: 'IBMPlexMono', monospace;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
 
 body {
   font-family: 'WorkSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -44,230 +45,291 @@ body {
   font-size: 16px;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .container {
-  max-width: 1080px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 0 1.5rem;
 }
 
 /* ===== Cover ===== */
 .cover {
-  padding: 4rem 0 3rem;
-  border-bottom: 2px solid var(--accent);
+  padding: 4.5rem 0 3rem;
+  border-bottom: 3px solid var(--ink);
 }
 .cover .eyebrow {
-  font-size: 0.8rem;
+  font-family: var(--mono);
+  font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--muted);
   margin-bottom: 1rem;
 }
 .cover h1 {
-  font-size: 2.2rem;
+  font-size: 2.4rem;
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.2;
   margin-bottom: 0.75rem;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
 }
 .cover .subtitle {
   font-size: 1.05rem;
   color: var(--muted);
-  max-width: 700px;
+  max-width: 680px;
+  text-wrap: pretty;
 }
 .cover .meta {
   margin-top: 1.5rem;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--muted);
-  font-family: 'IBMPlexMono', monospace;
+  font-family: var(--mono);
 }
 
-/* ===== Country Nav ===== */
+/* ===== Country Nav (sticky) ===== */
 .country-nav {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  padding: 1.5rem 0;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
   border-bottom: 1px solid var(--rule);
 }
 .country-nav a {
-  display: inline-block;
-  padding: 0.4rem 1rem;
-  background: var(--bg2);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.9rem;
+  background: transparent;
+  border: 1px solid var(--rule);
   border-radius: 20px;
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   font-weight: 600;
   color: var(--ink);
   text-decoration: none;
-  transition: all 0.2s;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
 }
-.country-nav a:hover {
-  background: var(--accent);
-  color: var(--bg);
+.country-nav a:hover,
+.country-nav a:focus-visible {
+  border-color: var(--nav-c, var(--ink));
+  color: var(--nav-c, var(--ink));
+  outline: none;
+}
+.country-nav a .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--nav-c, var(--muted));
 }
 
-/* ===== Sections ===== */
-section {
-  padding: 2.5rem 0;
+/* ===== Country Section ===== */
+.country-section {
+  padding: 2.5rem 0 3rem;
   border-bottom: 1px solid var(--rule);
+  --c: #333;
+  --c-bg: rgba(0,0,0,0.03);
 }
 
-h2.country-title {
-  font-size: 1.6rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
+.country-header {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: 0.75rem;
+  margin-bottom: 0.4rem;
+  padding-left: 1rem;
+  border-left: 5px solid var(--c);
 }
-h2.country-title .flag {
-  font-size: 1.8rem;
+.country-header .flag {
+  font-size: 1.6rem;
+  line-height: 1;
 }
-h2.country-title .num {
-  font-family: 'IBMPlexMono', monospace;
-  color: var(--accent);
-  font-size: 1rem;
+.country-header h2 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.country-header .badge {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--c);
+  background: var(--c-bg);
+  padding: 2px 10px;
+  border-radius: 4px;
 }
 
 .country-desc {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: var(--muted);
-  margin-bottom: 1.5rem;
-}
-
-mark.key {
-  background: none;
-  color: var(--accent);
-  font-weight: 600;
+  margin: 0.5rem 0 1.5rem 1rem;
+  max-width: 760px;
+  line-height: 1.65;
 }
 
 /* ===== Table ===== */
 .table-wrap {
   overflow-x: auto;
-  border-radius: 8px;
+  border-radius: 10px;
   border: 1px solid var(--rule);
-  margin: 1rem 0;
+  margin: 0;
+  background: #fff;
 }
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.88rem;
-  min-width: 700px;
+  font-size: 0.87rem;
+  min-width: 680px;
+  font-variant-numeric: tabular-nums;
 }
-th {
-  background: var(--ink);
-  color: var(--bg);
+thead th {
+  background: var(--c);
+  color: #fff;
   font-weight: 600;
   text-align: left;
   padding: 0.7rem 1rem;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
   white-space: nowrap;
 }
+thead th:nth-child(4),
+thead th:nth-child(5) { text-align: right; }
+
 td {
-  padding: 0.65rem 1rem;
+  padding: 0.62rem 1rem;
   border-bottom: 1px solid var(--rule);
 }
-tbody tr:nth-child(even) { background: var(--bg2); }
-tbody tr:hover { background: #e8e0d4; }
+tbody tr:nth-child(even) { background: var(--c-bg); }
+tbody tr:hover { background: var(--c-bg); filter: brightness(0.97); }
+
 td.rank {
-  font-family: 'IBMPlexMono', monospace;
+  font-family: var(--mono);
   font-weight: 700;
-  color: var(--accent);
+  color: var(--c);
   text-align: center;
   width: 2.5rem;
+  font-size: 0.95rem;
 }
 td.boxoffice {
-  font-family: 'IBMPlexMono', monospace;
+  font-family: var(--mono);
   font-weight: 600;
   text-align: right;
   white-space: nowrap;
 }
 td.rating {
-  font-family: 'IBMPlexMono', monospace;
-  text-align: center;
+  font-family: var(--mono);
+  text-align: right;
+  white-space: nowrap;
 }
 td.rating .score {
   font-weight: 700;
-  color: var(--accent2);
+  color: var(--c);
 }
 td.rating .source {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--muted);
+  margin-left: 0.2rem;
 }
-td.genre {
-  font-size: 0.82rem;
-}
+td.genre { font-size: 0.8rem; }
 .tag-genre {
   display: inline-block;
-  padding: 2px 8px;
+  padding: 1px 7px;
   border-radius: 3px;
-  font-size: 0.78rem;
-  background: var(--bg2);
-  color: var(--muted);
+  font-size: 0.74rem;
+  background: var(--c-bg);
+  color: var(--c);
   white-space: nowrap;
+  margin-right: 2px;
 }
 td.title-cell .en-name {
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   color: var(--muted);
   display: block;
+  margin-top: 1px;
 }
 
-/* ===== Chart ===== */
-.chart-figure {
-  margin: 2rem 0;
+.section-note {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 0.6rem;
+  padding-left: 1rem;
 }
-.chart-figure figcaption {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--ink);
-  margin-bottom: 0.75rem;
-}
-
-/* ===== Overview stats ===== */
-.overview-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin: 1.5rem 0;
-}
-.overview-card {
-  background: var(--bg2);
-  border-radius: 8px;
-  padding: 1.25rem;
-  text-align: center;
-}
-.overview-card .big-num {
-  font-family: 'IBMPlexMono', monospace;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--accent);
-}
-.overview-card .label {
+.callout {
+  background: var(--c-bg);
+  border-left: 3px solid var(--c);
+  border-radius: 0 6px 6px 0;
+  padding: 0.8rem 1.1rem;
+  margin-top: 0.8rem;
   font-size: 0.82rem;
   color: var(--muted);
-  margin-top: 0.3rem;
 }
 
-/* ===== Callout ===== */
-.callout {
-  background: var(--bg2);
-  border-left: 4px solid var(--accent2);
-  border-radius: 0 8px 8px 0;
-  padding: 0.9rem 1.25rem;
-  margin: 1.5rem 0;
-  font-size: 0.85rem;
-  color: var(--muted);
+sup a {
+  color: var(--c, var(--ink));
+  text-decoration: none;
+  font-size: 0.72em;
+  font-weight: 600;
+}
+sup a:hover { text-decoration: underline; }
+
+/* ===== Per-country colors ===== */
+#china    { --c: #c0392b; --c-bg: rgba(192,57,43,0.06); }
+#usa      { --c: #1e5a8a; --c-bg: rgba(30,90,138,0.06); }
+#japan    { --c: #b8336a; --c-bg: rgba(184,51,106,0.06); }
+#korea    { --c: #4a3a8c; --c-bg: rgba(74,58,140,0.06); }
+#france   { --c: #1a3a5c; --c-bg: rgba(26,58,92,0.06); }
+#india    { --c: #d97e2c; --c-bg: rgba(217,126,44,0.07); }
+
+/* ===== Back to Top ===== */
+.back-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: var(--ink);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: opacity 0.3s, visibility 0.3s, transform 0.3s, background 0.2s;
+  z-index: 200;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+}
+.back-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.back-top:hover {
+  background: #333;
+}
+.back-top:focus-visible {
+  outline: 3px solid #6b9fff;
+  outline-offset: 3px;
+}
+.back-top svg {
+  width: 22px;
+  height: 22px;
 }
 
 /* ===== Sources ===== */
 footer {
-  padding: 2.5rem 0 3rem;
-  border-top: 1px solid var(--rule);
+  padding: 2.5rem 0 4rem;
+  border-top: 2px solid var(--ink);
 }
 footer .sources h2 {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   margin-bottom: 1rem;
 }
 footer .sources ol {
@@ -288,20 +350,25 @@ footer .sources .src-url {
   display: block;
   margin-top: 0.15rem;
   font-size: 0.8rem;
-  color: var(--accent);
+  color: var(--ink);
   word-break: break-all;
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
 }
-sup a {
-  color: var(--accent);
-  text-decoration: none;
-  font-size: 0.75em;
-  font-weight: 600;
+footer .sources .src-url:hover {
+  text-decoration-color: var(--ink);
 }
-sup a:hover { text-decoration: underline; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .back-top { transition: opacity 0.01s; }
+  * { animation-duration: 0.01ms !important; }
+}
 
 @media (max-width: 768px) {
-  .overview-grid { grid-template-columns: 1fr; }
   .cover h1 { font-size: 1.7rem; }
+  .country-header h2 { font-size: 1.4rem; }
+  .back-top { bottom: 1.2rem; right: 1.2rem; }
 }
 </style>
 </head>
@@ -311,176 +378,171 @@ sup a:hover { text-decoration: underline; }
 
 <!-- ===== Cover ===== -->
 <header class="cover">
-  <div class="eyebrow">Global Box Office Report</div>
+  <div class="eyebrow">Global Box Office · 2026 H1</div>
   <h1>2026年上半年全球电影票房排行榜</h1>
   <p class="subtitle">中国、日本、韩国、美国、法国、印度六大市场上半年票房 TOP10,涵盖类型与评分,一览全球电影市场格局。</p>
-  <div class="meta">数据区间 2026年1-6月 | 发布日期 2026-06-30</div>
+  <div class="meta">数据区间 2026年1—6月&nbsp;&nbsp;|&nbsp;&nbsp;发布日期 2026-06-30</div>
 </header>
 
 <!-- ===== Country Nav ===== -->
-<nav class="country-nav">
-  <a href="#china">中国</a>
-  <a href="#usa">美国</a>
-  <a href="#japan">日本</a>
-  <a href="#korea">韩国</a>
-  <a href="#france">法国</a>
-  <a href="#india">印度</a>
+<nav class="country-nav" aria-label="国家导航">
+  <a href="#china" style="--nav-c:#c0392b"><span class="dot"></span>中国</a>
+  <a href="#usa" style="--nav-c:#1e5a8a"><span class="dot"></span>美国</a>
+  <a href="#japan" style="--nav-c:#b8336a"><span class="dot"></span>日本</a>
+  <a href="#korea" style="--nav-c:#4a3a8c"><span class="dot"></span>韩国</a>
+  <a href="#france" style="--nav-c:#1a3a5c"><span class="dot"></span>法国</a>
+  <a href="#india" style="--nav-c:#d97e2c"><span class="dot"></span>印度</a>
 </nav>
 
-<!-- ===== Overview ===== -->
-<section>
-  <h2 style="font-size:1.4rem;margin-bottom:1rem">全球市场概览</h2>
-  <p>2026 年上半年,全球电影市场呈现"好莱坞大片全球通吃 + 本土头部强势割据"的格局。中国总票房约 173 亿元,北美约 45 亿美元,印度宝莱坞诞生全球票房超 2 亿美元的爆款《杜兰达尔2》<sup><a href="#cite-3">[3]</a></sup><sup><a href="#cite-5">[5]</a></sup>。动画电影在各国榜单中均占据重要位置,科幻、动作仍是最具跨国号召力的品类。</p>
-  <div class="overview-grid">
-    <div class="overview-card">
-      <div class="big-num">173 亿</div>
-      <div class="label">中国上半年总票房(人民币)</div>
-    </div>
-    <div class="overview-card">
-      <div class="big-num">$45 亿</div>
-      <div class="label">北美上半年总票房(美元)</div>
-    </div>
-    <div class="overview-card">
-      <div class="big-num">$2.2 亿</div>
-      <div class="label">印度冠军片全球票房</div>
-    </div>
-  </div>
-
-  <figure class="chart-figure">
-    <figcaption>各国上半年票房冠军对比(折合百万美元)</figcaption>
-    <div id="chart-champions" style="width:100%;height:380px"></div>
-  </figure>
-</section>
-
 <!-- ===== China ===== -->
-<section id="china">
-  <h2 class="country-title"><span class="flag">🇨🇳</span> 中国内地 <span class="num">TOP 10</span></h2>
+<section id="china" class="country-section">
+  <div class="country-header">
+    <span class="flag" aria-hidden="true">🇨🇳</span>
+    <h2>中国内地</h2>
+    <span class="badge">TOP 10</span>
+  </div>
   <p class="country-desc">2026 年上半年中国内地总票房约 173.1 亿元,同比下降约 22%。春节档贡献近 90 亿元,《飞驰人生3》以 44.2 亿断层领跑。数据来源:灯塔专业版、猫眼专业版<sup><a href="#cite-1">[1]</a></sup><sup><a href="#cite-2">[2]</a></sup>。</p>
 
   <div class="table-wrap">
     <table>
       <thead><tr>
-        <th>#</th><th>电影名称</th><th>类型</th><th style="text-align:right">票房(人民币)</th><th>评分</th>
+        <th>#</th><th>电影名称</th><th>类型</th><th>票房(人民币)</th><th>评分</th>
       </tr></thead>
       <tbody>
-        <tr><td class="rank">1</td><td class="title-cell"><strong>飞驰人生3</strong><span class="en-name">Pegasus 3</span></td><td class="genre"><span class="tag-genre">喜剧</span> <span class="tag-genre">运动</span></td><td class="boxoffice">44.20 亿</td><td class="rating"><span class="score">7.4</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">2</td><td class="title-cell"><strong>给阿嬷的情书</strong><span class="en-name">Love Letter to Grandma</span></td><td class="genre"><span class="tag-genre">家庭</span> <span class="tag-genre">剧情</span></td><td class="boxoffice">19.15 亿</td><td class="rating"><span class="score">9.1</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">3</td><td class="title-cell"><strong>镖人:风起大漠</strong><span class="en-name">Blades of the Guardians</span></td><td class="genre"><span class="tag-genre">动作</span> <span class="tag-genre">武侠动画</span></td><td class="boxoffice">14.48 亿</td><td class="rating"><span class="score">7.5</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">4</td><td class="title-cell"><strong>惊蛰无声</strong><span class="en-name">Silent Awakening</span></td><td class="genre"><span class="tag-genre">剧情</span> <span class="tag-genre">国安</span></td><td class="boxoffice">13.65 亿</td><td class="rating"><span class="score">6.2</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">5</td><td class="title-cell"><strong>熊出没·年年有熊</strong><span class="en-name">Boonie Bears</span></td><td class="genre"><span class="tag-genre">动画</span></td><td class="boxoffice">10.67 亿</td><td class="rating"><span class="score">6.7</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">6</td><td class="title-cell"><strong>消失的人</strong><span class="en-name">The Vanished</span></td><td class="genre"><span class="tag-genre">悬疑</span> <span class="tag-genre">剧情</span></td><td class="boxoffice">5.63 亿</td><td class="rating"><span class="score">7.7</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">7</td><td class="title-cell"><strong>寒战1994</strong><span class="en-name">Cold War 1994</span></td><td class="genre"><span class="tag-genre">警匪</span> <span class="tag-genre">动作</span></td><td class="boxoffice">2.96 亿</td><td class="rating"><span class="score">7.2</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">8</td><td class="title-cell"><strong>熊猫计划之部落奇遇记</strong><span class="en-name">Panda Plan</span></td><td class="genre"><span class="tag-genre">动作</span> <span class="tag-genre">喜剧</span></td><td class="boxoffice">~2.5 亿</td><td class="rating"><span class="score">—</span></td></tr>
-        <tr><td class="rank">9</td><td class="title-cell"><strong>挽救计划</strong><span class="en-name">Project Hail Mary</span></td><td class="genre"><span class="tag-genre">科幻</span></td><td class="boxoffice">~2.0 亿</td><td class="rating"><span class="score">8.6</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">10</td><td class="title-cell"><strong>夜王</strong><span class="en-name">Night King</span></td><td class="genre"><span class="tag-genre">粤语喜剧</span> <span class="tag-genre">剧情</span></td><td class="boxoffice">~1.2 亿</td><td class="rating"><span class="score">—</span></td></tr>
+        <tr><td class="rank">1</td><td class="title-cell"><strong>飞驰人生3</strong><span class="en-name">Pegasus 3</span></td><td class="genre"><span class="tag-genre">喜剧</span><span class="tag-genre">运动</span></td><td class="boxoffice">44.20&nbsp;亿</td><td class="rating"><span class="score">7.4</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">2</td><td class="title-cell"><strong>给阿嬷的情书</strong><span class="en-name">Love Letter to Grandma</span></td><td class="genre"><span class="tag-genre">家庭</span><span class="tag-genre">剧情</span></td><td class="boxoffice">19.15&nbsp;亿</td><td class="rating"><span class="score">9.1</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">3</td><td class="title-cell"><strong>镖人:风起大漠</strong><span class="en-name">Blades of the Guardians</span></td><td class="genre"><span class="tag-genre">动作</span><span class="tag-genre">武侠动画</span></td><td class="boxoffice">14.48&nbsp;亿</td><td class="rating"><span class="score">7.5</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">4</td><td class="title-cell"><strong>惊蛰无声</strong><span class="en-name">Silent Awakening</span></td><td class="genre"><span class="tag-genre">剧情</span><span class="tag-genre">国安</span></td><td class="boxoffice">13.65&nbsp;亿</td><td class="rating"><span class="score">6.2</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">5</td><td class="title-cell"><strong>熊出没·年年有熊</strong><span class="en-name">Boonie Bears</span></td><td class="genre"><span class="tag-genre">动画</span></td><td class="boxoffice">10.67&nbsp;亿</td><td class="rating"><span class="score">6.7</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">6</td><td class="title-cell"><strong>消失的人</strong><span class="en-name">The Vanished</span></td><td class="genre"><span class="tag-genre">悬疑</span><span class="tag-genre">剧情</span></td><td class="boxoffice">5.63&nbsp;亿</td><td class="rating"><span class="score">7.7</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">7</td><td class="title-cell"><strong>寒战1994</strong><span class="en-name">Cold War 1994</span></td><td class="genre"><span class="tag-genre">警匪</span><span class="tag-genre">动作</span></td><td class="boxoffice">2.96&nbsp;亿</td><td class="rating"><span class="score">7.2</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">8</td><td class="title-cell"><strong>熊猫计划之部落奇遇记</strong><span class="en-name">Panda Plan</span></td><td class="genre"><span class="tag-genre">动作</span><span class="tag-genre">喜剧</span></td><td class="boxoffice">~2.5&nbsp;亿</td><td class="rating"><span class="score">—</span></td></tr>
+        <tr><td class="rank">9</td><td class="title-cell"><strong>挽救计划</strong><span class="en-name">Project Hail Mary</span></td><td class="genre"><span class="tag-genre">科幻</span></td><td class="boxoffice">~2.0&nbsp;亿</td><td class="rating"><span class="score">8.6</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">10</td><td class="title-cell"><strong>夜王</strong><span class="en-name">Night King</span></td><td class="genre"><span class="tag-genre">粤语喜剧</span><span class="tag-genre">剧情</span></td><td class="boxoffice">~1.2&nbsp;亿</td><td class="rating"><span class="score">—</span></td></tr>
       </tbody>
     </table>
   </div>
-  <p style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem"><sup><a href="#cite-1">[1]</a></sup><sup><a href="#cite-2">[2]</a></sup> 第8-10名票房为估算值。豆瓣评分来自豆瓣电影"2026年北美票房榜"豆列<sup><a href="#cite-3">[3]</a></sup>。</p>
+  <p class="section-note">第8—10名票房为估算值。豆瓣评分来自豆瓣电影"2026年北美票房榜"豆列<sup><a href="#cite-3">[3]</a></sup>。</p>
 </section>
 
 <!-- ===== USA ===== -->
-<section id="usa">
-  <h2 class="country-title"><span class="flag">🇺🇸</span> 美国(北美) <span class="num">TOP 10</span></h2>
+<section id="usa" class="country-section">
+  <div class="country-header">
+    <span class="flag" aria-hidden="true">🇺🇸</span>
+    <h2>美国(北美)</h2>
+    <span class="badge">TOP 10</span>
+  </div>
   <p class="country-desc">北美上半年总票房约 45 亿美元,同比增长约 12%。动画《超级马力欧银河大电影》以 4.3 亿美元夺冠。数据来源:Box Office Mojo<sup><a href="#cite-4">[4]</a></sup><sup><a href="#cite-5">[5]</a></sup>。</p>
 
   <div class="table-wrap">
     <table>
       <thead><tr>
-        <th>#</th><th>电影名称</th><th>类型</th><th style="text-align:right">票房(美元)</th><th>评分</th>
+        <th>#</th><th>电影名称</th><th>类型</th><th>票房(美元)</th><th>评分</th>
       </tr></thead>
       <tbody>
-        <tr><td class="rank">1</td><td class="title-cell"><strong>超级马力欧银河大电影</strong><span class="en-name">The Super Mario Galaxy Movie</span></td><td class="genre"><span class="tag-genre">动画</span> <span class="tag-genre">喜剧</span></td><td class="boxoffice">$429.7M</td><td class="rating"><span class="score">7.0</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">2</td><td class="title-cell"><strong>迈克尔</strong><span class="en-name">Michael</span></td><td class="genre"><span class="tag-genre">传记</span> <span class="tag-genre">音乐</span></td><td class="boxoffice">$368.7M</td><td class="rating"><span class="score">7.5</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">3</td><td class="title-cell"><strong>挽救计划</strong><span class="en-name">Project Hail Mary</span></td><td class="genre"><span class="tag-genre">科幻</span> <span class="tag-genre">惊悚</span></td><td class="boxoffice">$344.0M</td><td class="rating"><span class="score">8.6</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">4</td><td class="title-cell"><strong>痴迷</strong><span class="en-name">Obsession</span></td><td class="genre"><span class="tag-genre">恐怖</span></td><td class="boxoffice">$220.1M</td><td class="rating"><span class="score">7.7</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">5</td><td class="title-cell"><strong>穿普拉达的女王2</strong><span class="en-name">The Devil Wears Prada 2</span></td><td class="genre"><span class="tag-genre">剧情</span> <span class="tag-genre">喜剧</span></td><td class="boxoffice">$219.5M</td><td class="rating"><span class="score">6.6</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">6</td><td class="title-cell"><strong>玩具总动员5</strong><span class="en-name">Toy Story 5</span></td><td class="genre"><span class="tag-genre">动画</span> <span class="tag-genre">冒险</span></td><td class="boxoffice">$200.7M</td><td class="rating"><span class="score">8.1</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">7</td><td class="title-cell"><strong>后室</strong><span class="en-name">Backrooms</span></td><td class="genre"><span class="tag-genre">科幻</span> <span class="tag-genre">恐怖</span></td><td class="boxoffice">$175.1M</td><td class="rating"><span class="score">6.6</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">8</td><td class="title-cell"><strong>曼达洛人与古古</strong><span class="en-name">The Mandalorian & Grogu</span></td><td class="genre"><span class="tag-genre">动作</span> <span class="tag-genre">科幻</span></td><td class="boxoffice">$173.0M</td><td class="rating"><span class="score">7.4</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">9</td><td class="title-cell"><strong>河狸变身计划</strong><span class="en-name">Hoppers</span></td><td class="genre"><span class="tag-genre">动画</span> <span class="tag-genre">喜剧</span></td><td class="boxoffice">$166.0M</td><td class="rating"><span class="score">7.4</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">10</td><td class="title-cell"><strong>阿凡达3:火与灰</strong><span class="en-name">Avatar: Fire and Ash</span></td><td class="genre"><span class="tag-genre">科幻</span> <span class="tag-genre">冒险</span></td><td class="boxoffice">$154.0M</td><td class="rating"><span class="score">—</span></td></tr>
+        <tr><td class="rank">1</td><td class="title-cell"><strong>超级马力欧银河大电影</strong><span class="en-name">The Super Mario Galaxy Movie</span></td><td class="genre"><span class="tag-genre">动画</span><span class="tag-genre">喜剧</span></td><td class="boxoffice">$429.7M</td><td class="rating"><span class="score">7.0</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">2</td><td class="title-cell"><strong>迈克尔</strong><span class="en-name">Michael</span></td><td class="genre"><span class="tag-genre">传记</span><span class="tag-genre">音乐</span></td><td class="boxoffice">$368.7M</td><td class="rating"><span class="score">7.5</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">3</td><td class="title-cell"><strong>挽救计划</strong><span class="en-name">Project Hail Mary</span></td><td class="genre"><span class="tag-genre">科幻</span><span class="tag-genre">惊悚</span></td><td class="boxoffice">$344.0M</td><td class="rating"><span class="score">8.6</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">4</td><td class="title-cell"><strong>痴迷</strong><span class="en-name">Obsession</span></td><td class="genre"><span class="tag-genre">恐怖</span></td><td class="boxoffice">$220.1M</td><td class="rating"><span class="score">7.7</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">5</td><td class="title-cell"><strong>穿普拉达的女王2</strong><span class="en-name">The Devil Wears Prada 2</span></td><td class="genre"><span class="tag-genre">剧情</span><span class="tag-genre">喜剧</span></td><td class="boxoffice">$219.5M</td><td class="rating"><span class="score">6.6</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">6</td><td class="title-cell"><strong>玩具总动员5</strong><span class="en-name">Toy Story 5</span></td><td class="genre"><span class="tag-genre">动画</span><span class="tag-genre">冒险</span></td><td class="boxoffice">$200.7M</td><td class="rating"><span class="score">8.1</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">7</td><td class="title-cell"><strong>后室</strong><span class="en-name">Backrooms</span></td><td class="genre"><span class="tag-genre">科幻</span><span class="tag-genre">恐怖</span></td><td class="boxoffice">$175.1M</td><td class="rating"><span class="score">6.6</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">8</td><td class="title-cell"><strong>曼达洛人与古古</strong><span class="en-name">The Mandalorian &amp; Grogu</span></td><td class="genre"><span class="tag-genre">动作</span><span class="tag-genre">科幻</span></td><td class="boxoffice">$173.0M</td><td class="rating"><span class="score">7.4</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">9</td><td class="title-cell"><strong>河狸变身计划</strong><span class="en-name">Hoppers</span></td><td class="genre"><span class="tag-genre">动画</span><span class="tag-genre">喜剧</span></td><td class="boxoffice">$166.0M</td><td class="rating"><span class="score">7.4</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">10</td><td class="title-cell"><strong>阿凡达3:火与灰</strong><span class="en-name">Avatar: Fire and Ash</span></td><td class="genre"><span class="tag-genre">科幻</span><span class="tag-genre">冒险</span></td><td class="boxoffice">$154.0M</td><td class="rating"><span class="score">—</span></td></tr>
       </tbody>
     </table>
   </div>
-  <p style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem"><sup><a href="#cite-4">[4]</a></sup> 阿凡达3于2025年12月上映,$154M为2026日历年票房(总票房$404M)。玩具总动员5仍在映,票房将持续增长。</p>
+  <p class="section-note">阿凡达3于2025年12月上映,$154M为2026日历年票房(总票房$404M)。玩具总动员5仍在映,票房将持续增长。</p>
 </section>
 
 <!-- ===== Japan ===== -->
-<section id="japan">
-  <h2 class="country-title"><span class="flag">🇯🇵</span> 日本 <span class="num">TOP 10</span></h2>
+<section id="japan" class="country-section">
+  <div class="country-header">
+    <span class="flag" aria-hidden="true">🇯🇵</span>
+    <h2>日本</h2>
+    <span class="badge">TOP 10</span>
+  </div>
   <p class="country-desc">日本市场由本土动画主导,《名侦探柯南》剧场版连续4年破百亿日元。以下排名基于已确认票房数据及市场报道<sup><a href="#cite-7">[7]</a></sup><sup><a href="#cite-8">[8]</a></sup>。</p>
 
   <div class="table-wrap">
     <table>
       <thead><tr>
-        <th>#</th><th>电影名称</th><th>类型</th><th style="text-align:right">票房</th><th>评分</th>
+        <th>#</th><th>电影名称</th><th>类型</th><th>票房</th><th>评分</th>
       </tr></thead>
       <tbody>
-        <tr><td class="rank">1</td><td class="title-cell"><strong>名侦探柯南:高速公路的堕天使</strong><span class="en-name">Detective Conan: Highway Angel</span></td><td class="genre"><span class="tag-genre">动画</span> <span class="tag-genre">悬疑</span></td><td class="boxoffice">134 亿日元</td><td class="rating"><span class="score">6.2</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">2</td><td class="title-cell"><strong>哆啦A梦:大雄的绘世界物语</strong><span class="en-name">Doraemon: Nobita's Art World Tales</span></td><td class="genre"><span class="tag-genre">动画</span> <span class="tag-genre">奇幻</span></td><td class="boxoffice">~40 亿日元</td><td class="rating"><span class="score">—</span></td></tr>
-        <tr><td class="rank">3</td><td class="title-cell"><strong>阿凡达3:火与灰</strong><span class="en-name">Avatar: Fire and Ash</span></td><td class="genre"><span class="tag-genre">科幻</span> <span class="tag-genre">动作</span></td><td class="boxoffice">数据待公布</td><td class="rating"><span class="score">—</span></td></tr>
-        <tr><td class="rank">4</td><td class="title-cell"><strong>超级马力欧银河大电影</strong><span class="en-name">The Super Mario Galaxy Movie</span></td><td class="genre"><span class="tag-genre">动画</span> <span class="tag-genre">喜剧</span></td><td class="boxoffice">数据待公布</td><td class="rating"><span class="score">7.0</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">5</td><td class="title-cell"><strong>碟中谍8:最终清算</strong><span class="en-name">Mission: Impossible 8</span></td><td class="genre"><span class="tag-genre">动作</span> <span class="tag-genre">惊悚</span></td><td class="boxoffice">数据待公布</td><td class="rating"><span class="score">—</span></td></tr>
-        <tr><td class="rank">6</td><td class="title-cell"><strong>迈克尔</strong><span class="en-name">Michael</span></td><td class="genre"><span class="tag-genre">传记</span> <span class="tag-genre">音乐</span></td><td class="boxoffice">数据待公布</td><td class="rating"><span class="score">7.5</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">7</td><td class="title-cell"><strong>玩具总动员5</strong><span class="en-name">Toy Story 5</span></td><td class="genre"><span class="tag-genre">动画</span> <span class="tag-genre">家庭</span></td><td class="boxoffice">数据待公布</td><td class="rating"><span class="score">8.1</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">8</td><td class="title-cell"><strong>挽救计划</strong><span class="en-name">Project Hail Mary</span></td><td class="genre"><span class="tag-genre">科幻</span></td><td class="boxoffice">数据待公布</td><td class="rating"><span class="score">8.6</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">9</td><td class="title-cell"><strong>疯狂动物城2</strong><span class="en-name">Zootopia 2</span></td><td class="genre"><span class="tag-genre">动画</span> <span class="tag-genre">冒险</span></td><td class="boxoffice">数据待公布</td><td class="rating"><span class="score">—</span></td></tr>
-        <tr><td class="rank">10</td><td class="title-cell"><strong>穿普拉达的女王2</strong><span class="en-name">The Devil Wears Prada 2</span></td><td class="genre"><span class="tag-genre">剧情</span> <span class="tag-genre">喜剧</span></td><td class="boxoffice">数据待公布</td><td class="rating"><span class="score">6.6</span> <span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">1</td><td class="title-cell"><strong>名侦探柯南:高速公路的堕天使</strong><span class="en-name">Detective Conan: Highway Angel</span></td><td class="genre"><span class="tag-genre">动画</span><span class="tag-genre">悬疑</span></td><td class="boxoffice">134&nbsp;亿日元</td><td class="rating"><span class="score">6.2</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">2</td><td class="title-cell"><strong>哆啦A梦:大雄的绘世界物语</strong><span class="en-name">Doraemon: Nobita's Art World Tales</span></td><td class="genre"><span class="tag-genre">动画</span><span class="tag-genre">奇幻</span></td><td class="boxoffice">~40&nbsp;亿日元</td><td class="rating"><span class="score">—</span></td></tr>
+        <tr><td class="rank">3</td><td class="title-cell"><strong>阿凡达3:火与灰</strong><span class="en-name">Avatar: Fire and Ash</span></td><td class="genre"><span class="tag-genre">科幻</span><span class="tag-genre">动作</span></td><td class="boxoffice">数据待公布</td><td class="rating"><span class="score">—</span></td></tr>
+        <tr><td class="rank">4</td><td class="title-cell"><strong>超级马力欧银河大电影</strong><span class="en-name">The Super Mario Galaxy Movie</span></td><td class="genre"><span class="tag-genre">动画</span><span class="tag-genre">喜剧</span></td><td class="boxoffice">数据待公布</td><td class="rating"><span class="score">7.0</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">5</td><td class="title-cell"><strong>碟中谍8:最终清算</strong><span class="en-name">Mission: Impossible 8</span></td><td class="genre"><span class="tag-genre">动作</span><span class="tag-genre">惊悚</span></td><td class="boxoffice">数据待公布</td><td class="rating"><span class="score">—</span></td></tr>
+        <tr><td class="rank">6</td><td class="title-cell"><strong>迈克尔</strong><span class="en-name">Michael</span></td><td class="genre"><span class="tag-genre">传记</span><span class="tag-genre">音乐</span></td><td class="boxoffice">数据待公布</td><td class="rating"><span class="score">7.5</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">7</td><td class="title-cell"><strong>玩具总动员5</strong><span class="en-name">Toy Story 5</span></td><td class="genre"><span class="tag-genre">动画</span><span class="tag-genre">家庭</span></td><td class="boxoffice">数据待公布</td><td class="rating"><span class="score">8.1</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">8</td><td class="title-cell"><strong>挽救计划</strong><span class="en-name">Project Hail Mary</span></td><td class="genre"><span class="tag-genre">科幻</span></td><td class="boxoffice">数据待公布</td><td class="rating"><span class="score">8.6</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">9</td><td class="title-cell"><strong>疯狂动物城2</strong><span class="en-name">Zootopia 2</span></td><td class="genre"><span class="tag-genre">动画</span><span class="tag-genre">冒险</span></td><td class="boxoffice">数据待公布</td><td class="rating"><span class="score">—</span></td></tr>
+        <tr><td class="rank">10</td><td class="title-cell"><strong>穿普拉达的女王2</strong><span class="en-name">The Devil Wears Prada 2</span></td><td class="genre"><span class="tag-genre">剧情</span><span class="tag-genre">喜剧</span></td><td class="boxoffice">数据待公布</td><td class="rating"><span class="score">6.6</span><span class="source">豆瓣</span></td></tr>
       </tbody>
     </table>
   </div>
-  <div class="callout"><strong>数据说明:</strong>日本映画制作者联盟通常在7-8月发布半年度排行,部分引进片具体票房数据待官方公布后补充。第1-2名为已确认票房,第3-10名为已确认在日本上映但票房待公布的影片。</div>
+  <div class="callout"><strong>数据说明:</strong>日本映画制作者联盟通常在7—8月发布半年度排行,部分引进片具体票房数据待官方公布后补充。第1—2名为已确认票房,第3—10名为已确认在日本上映但票房待公布的影片。</div>
 </section>
 
 <!-- ===== Korea ===== -->
-<section id="korea">
-  <h2 class="country-title"><span class="flag">🇰🇷</span> 韩国 <span class="num">TOP 10</span></h2>
+<section id="korea" class="country-section">
+  <div class="country-header">
+    <span class="flag" aria-hidden="true">🇰🇷</span>
+    <h2>韩国</h2>
+    <span class="badge">TOP 10</span>
+  </div>
   <p class="country-desc">韩国市场本土大片与好莱坞分庭抗礼,《与王同住的男人》以1616万观影人次夺冠。数据来源:KOBIS(韩国电影振兴委员会)<sup><a href="#cite-9">[9]</a></sup><sup><a href="#cite-10">[10]</a></sup>。</p>
 
   <div class="table-wrap">
     <table>
       <thead><tr>
-        <th>#</th><th>电影名称</th><th>类型</th><th style="text-align:right">观影人次</th><th>评分</th>
+        <th>#</th><th>电影名称</th><th>类型</th><th>观影人次</th><th>评分</th>
       </tr></thead>
       <tbody>
-        <tr><td class="rank">1</td><td class="title-cell"><strong>与王同住的男人</strong><span class="en-name">왕과 사는 남자</span></td><td class="genre"><span class="tag-genre">剧情</span> <span class="tag-genre">历史</span></td><td class="boxoffice">1,616 万</td><td class="rating"><span class="score">—</span></td></tr>
-        <tr><td class="rank">2</td><td class="title-cell"><strong>群体(殖民地)</strong><span class="en-name">Colony</span></td><td class="genre"><span class="tag-genre">动作</span> <span class="tag-genre">恐怖</span></td><td class="boxoffice">571 万+</td><td class="rating"><span class="score">—</span></td></tr>
-        <tr><td class="rank">3</td><td class="title-cell"><strong>假如我们</strong><span class="en-name">만약에 우리</span></td><td class="genre"><span class="tag-genre">剧情</span></td><td class="boxoffice">247 万</td><td class="rating"><span class="score">—</span></td></tr>
-        <tr><td class="rank">4</td><td class="title-cell"><strong>阿凡达3:火与灰</strong><span class="en-name">Avatar: Fire and Ash</span></td><td class="genre"><span class="tag-genre">科幻</span> <span class="tag-genre">动作</span></td><td class="boxoffice">218 万</td><td class="rating"><span class="score">—</span></td></tr>
-        <tr><td class="rank">5</td><td class="title-cell"><strong>人工情报</strong><span class="en-name">Humint</span></td><td class="genre"><span class="tag-genre">间谍</span> <span class="tag-genre">惊悚</span></td><td class="boxoffice">198 万</td><td class="rating"><span class="score">—</span></td></tr>
-        <tr><td class="rank">6</td><td class="title-cell"><strong>挽救计划</strong><span class="en-name">Project Hail Mary</span></td><td class="genre"><span class="tag-genre">科幻</span></td><td class="boxoffice">170 万</td><td class="rating"><span class="score">8.6</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">7</td><td class="title-cell"><strong>玩具总动员5</strong><span class="en-name">Toy Story 5</span></td><td class="genre"><span class="tag-genre">动画</span> <span class="tag-genre">家庭</span></td><td class="boxoffice">161 万+</td><td class="rating"><span class="score">8.1</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">8</td><td class="title-cell"><strong>神之乐团</strong><span class="en-name">God's Orchestra</span></td><td class="genre"><span class="tag-genre">剧情</span></td><td class="boxoffice">142 万</td><td class="rating"><span class="score">—</span></td></tr>
-        <tr><td class="rank">9</td><td class="title-cell"><strong>疯狂动物城2</strong><span class="en-name">Zootopia 2</span></td><td class="genre"><span class="tag-genre">动画</span> <span class="tag-genre">喜剧</span></td><td class="boxoffice">91 万</td><td class="rating"><span class="score">—</span></td></tr>
-        <tr><td class="rank">10</td><td class="title-cell"><strong>河狸变身计划</strong><span class="en-name">Hoppers</span></td><td class="genre"><span class="tag-genre">动画</span> <span class="tag-genre">喜剧</span></td><td class="boxoffice">74 万</td><td class="rating"><span class="score">7.4</span> <span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">1</td><td class="title-cell"><strong>与王同住的男人</strong><span class="en-name">왕과 사는 남자</span></td><td class="genre"><span class="tag-genre">剧情</span><span class="tag-genre">历史</span></td><td class="boxoffice">1,616&nbsp;万</td><td class="rating"><span class="score">—</span></td></tr>
+        <tr><td class="rank">2</td><td class="title-cell"><strong>群体(殖民地)</strong><span class="en-name">Colony</span></td><td class="genre"><span class="tag-genre">动作</span><span class="tag-genre">恐怖</span></td><td class="boxoffice">571&nbsp;万+</td><td class="rating"><span class="score">—</span></td></tr>
+        <tr><td class="rank">3</td><td class="title-cell"><strong>假如我们</strong><span class="en-name">만약에 우리</span></td><td class="genre"><span class="tag-genre">剧情</span></td><td class="boxoffice">247&nbsp;万</td><td class="rating"><span class="score">—</span></td></tr>
+        <tr><td class="rank">4</td><td class="title-cell"><strong>阿凡达3:火与灰</strong><span class="en-name">Avatar: Fire and Ash</span></td><td class="genre"><span class="tag-genre">科幻</span><span class="tag-genre">动作</span></td><td class="boxoffice">218&nbsp;万</td><td class="rating"><span class="score">—</span></td></tr>
+        <tr><td class="rank">5</td><td class="title-cell"><strong>人工情报</strong><span class="en-name">Humint</span></td><td class="genre"><span class="tag-genre">间谍</span><span class="tag-genre">惊悚</span></td><td class="boxoffice">198&nbsp;万</td><td class="rating"><span class="score">—</span></td></tr>
+        <tr><td class="rank">6</td><td class="title-cell"><strong>挽救计划</strong><span class="en-name">Project Hail Mary</span></td><td class="genre"><span class="tag-genre">科幻</span></td><td class="boxoffice">170&nbsp;万</td><td class="rating"><span class="score">8.6</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">7</td><td class="title-cell"><strong>玩具总动员5</strong><span class="en-name">Toy Story 5</span></td><td class="genre"><span class="tag-genre">动画</span><span class="tag-genre">家庭</span></td><td class="boxoffice">161&nbsp;万+</td><td class="rating"><span class="score">8.1</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">8</td><td class="title-cell"><strong>神之乐团</strong><span class="en-name">God's Orchestra</span></td><td class="genre"><span class="tag-genre">剧情</span></td><td class="boxoffice">142&nbsp;万</td><td class="rating"><span class="score">—</span></td></tr>
+        <tr><td class="rank">9</td><td class="title-cell"><strong>疯狂动物城2</strong><span class="en-name">Zootopia 2</span></td><td class="genre"><span class="tag-genre">动画</span><span class="tag-genre">喜剧</span></td><td class="boxoffice">91&nbsp;万</td><td class="rating"><span class="score">—</span></td></tr>
+        <tr><td class="rank">10</td><td class="title-cell"><strong>河狸变身计划</strong><span class="en-name">Hoppers</span></td><td class="genre"><span class="tag-genre">动画</span><span class="tag-genre">喜剧</span></td><td class="boxoffice">74&nbsp;万</td><td class="rating"><span class="score">7.4</span><span class="source">豆瓣</span></td></tr>
       </tbody>
     </table>
   </div>
-  <p style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem"><sup><a href="#cite-9">[9]</a></sup><sup><a href="#cite-10">[10]</a></sup> KOBIS数据约截至4月,5-6月数据来自新闻报道。汇率:1美元≈1330韩元。</p>
+  <p class="section-note">KOBIS数据约截至4月,5—6月数据来自新闻报道。汇率:1美元≈1330韩元。</p>
 </section>
 
 <!-- ===== France ===== -->
-<section id="france">
-  <h2 class="country-title"><span class="flag">🇫🇷</span> 法国 <span class="num">TOP 10</span></h2>
+<section id="france" class="country-section">
+  <div class="country-header">
+    <span class="flag" aria-hidden="true">🇫🇷</span>
+    <h2>法国</h2>
+    <span class="badge">TOP 10</span>
+  </div>
   <p class="country-desc">法国以观影人次(entrées)为统计标准,上半年累计约5689万人次,同比增长20.9%。本土动画《长尾豹马修》领跑寒假档。数据来源:CBO Box Office<sup><a href="#cite-11">[11]</a></sup><sup><a href="#cite-12">[12]</a></sup>。</p>
 
   <div class="table-wrap">
     <table>
       <thead><tr>
-        <th>#</th><th>电影名称</th><th>类型</th><th style="text-align:right">市场表现</th><th>评分</th>
+        <th>#</th><th>电影名称</th><th>类型</th><th>市场表现</th><th>评分</th>
       </tr></thead>
       <tbody>
-        <tr><td class="rank">1</td><td class="title-cell"><strong>长尾豹马修</strong><span class="en-name">Marsupilami</span></td><td class="genre"><span class="tag-genre">动画</span> <span class="tag-genre">喜剧</span></td><td class="boxoffice">年度热门</td><td class="rating"><span class="score">—</span></td></tr>
-        <tr><td class="rank">2</td><td class="title-cell"><strong>超级马力欧银河大电影</strong><span class="en-name">Super Mario Galaxy le film</span></td><td class="genre"><span class="tag-genre">动画</span></td><td class="boxoffice">3周周榜冠军</td><td class="rating"><span class="score">7.0</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">3</td><td class="title-cell"><strong>迈克尔</strong><span class="en-name">Michael</span></td><td class="genre"><span class="tag-genre">传记</span> <span class="tag-genre">音乐</span></td><td class="boxoffice">年度第3佳首周</td><td class="rating"><span class="score">7.5</span> <span class="source">豆瓣</span></td></tr>
-        <tr><td class="rank">4</td><td class="title-cell"><strong>穿普拉达的女王2</strong><span class="en-name">Le Diable s'habille en Prada 2</span></td><td class="genre"><span class="tag-genre">喜剧</span> <span class="tag-genre">剧情</span></td><td class="boxoffice">最佳首日开局</td><td class="rating"><span class="score">6.6</span> <span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">1</td><td class="title-cell"><strong>长尾豹马修</strong><span class="en-name">Marsupilami</span></td><td class="genre"><span class="tag-genre">动画</span><span class="tag-genre">喜剧</span></td><td class="boxoffice">年度热门</td><td class="rating"><span class="score">—</span></td></tr>
+        <tr><td class="rank">2</td><td class="title-cell"><strong>超级马力欧银河大电影</strong><span class="en-name">Super Mario Galaxy le film</span></td><td class="genre"><span class="tag-genre">动画</span></td><td class="boxoffice">3周周榜冠军</td><td class="rating"><span class="score">7.0</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">3</td><td class="title-cell"><strong>迈克尔</strong><span class="en-name">Michael</span></td><td class="genre"><span class="tag-genre">传记</span><span class="tag-genre">音乐</span></td><td class="boxoffice">年度第3佳首周</td><td class="rating"><span class="score">7.5</span><span class="source">豆瓣</span></td></tr>
+        <tr><td class="rank">4</td><td class="title-cell"><strong>穿普拉达的女王2</strong><span class="en-name">Le Diable s'habille en Prada 2</span></td><td class="genre"><span class="tag-genre">喜剧</span><span class="tag-genre">剧情</span></td><td class="boxoffice">最佳首日开局</td><td class="rating"><span class="score">6.6</span><span class="source">豆瓣</span></td></tr>
         <tr><td class="rank">5</td><td class="title-cell"><strong>只是错觉</strong><span class="en-name">Juste une illusion</span></td><td class="genre"><span class="tag-genre">家庭喜剧</span></td><td class="boxoffice">周榜季军</td><td class="rating"><span class="score">—</span></td></tr>
         <tr><td class="rank">6</td><td class="title-cell"><strong>孔波斯特勒</strong><span class="en-name">Compostelle</span></td><td class="genre"><span class="tag-genre">剧情</span></td><td class="boxoffice">春季佳作</td><td class="rating"><span class="score">—</span></td></tr>
         <tr><td class="rank">7</td><td class="title-cell"><strong>高卢鸡2</strong><span class="en-name">Cocorico 2</span></td><td class="genre"><span class="tag-genre">喜剧</span></td><td class="boxoffice">周榜前十</td><td class="rating"><span class="score">—</span></td></tr>
-        <tr><td class="rank">8</td><td class="title-cell"><strong>木乃伊觉醒</strong><span class="en-name">Le réveil de la momie</span></td><td class="genre"><span class="tag-genre">动作</span> <span class="tag-genre">冒险</span></td><td class="boxoffice">周榜前十</td><td class="rating"><span class="score">—</span></td></tr>
+        <tr><td class="rank">8</td><td class="title-cell"><strong>木乃伊觉醒</strong><span class="en-name">Le réveil de la momie</span></td><td class="genre"><span class="tag-genre">动作</span><span class="tag-genre">冒险</span></td><td class="boxoffice">周榜前十</td><td class="rating"><span class="score">—</span></td></tr>
         <tr><td class="rank">9</td><td class="title-cell"><strong>比我更强</strong><span class="en-name">Plus fort que moi</span></td><td class="genre"><span class="tag-genre">剧情</span></td><td class="boxoffice">春季佳作</td><td class="rating"><span class="score">—</span></td></tr>
-        <tr><td class="rank">10</td><td class="title-cell"><strong>斗殴</strong><span class="en-name">Bagarre</span></td><td class="genre"><span class="tag-genre">动作</span> <span class="tag-genre">剧情</span></td><td class="boxoffice">周榜前十</td><td class="rating"><span class="score">—</span></td></tr>
+        <tr><td class="rank">10</td><td class="title-cell"><strong>斗殴</strong><span class="en-name">Bagarre</span></td><td class="genre"><span class="tag-genre">动作</span><span class="tag-genre">剧情</span></td><td class="boxoffice">周榜前十</td><td class="rating"><span class="score">—</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -488,42 +550,34 @@ sup a:hover { text-decoration: underline; }
 </section>
 
 <!-- ===== India ===== -->
-<section id="india">
-  <h2 class="country-title"><span class="flag">🇮🇳</span> 印度(宝莱坞) <span class="num">TOP 10</span></h2>
+<section id="india" class="country-section">
+  <div class="country-header">
+    <span class="flag" aria-hidden="true">🇮🇳</span>
+    <h2>印度(宝莱坞)</h2>
+    <span class="badge">TOP 10</span>
+  </div>
   <p class="country-desc">《杜兰达尔2》全球票房约1850亿卢比(~$2.2亿),断层式领跑。数据来源:Koimoi(印度权威票房追踪)<sup><a href="#cite-13">[13]</a></sup><sup><a href="#cite-14">[14]</a></sup>。单位:Cr(千万卢比),1美元≈84卢比。</p>
 
   <div class="table-wrap">
     <table>
       <thead><tr>
-        <th>#</th><th>电影名称</th><th>类型</th><th style="text-align:right">印度票房</th><th style="text-align:right">全球票房</th>
+        <th>#</th><th>电影名称</th><th>类型</th><th>印度票房</th><th>全球票房</th>
       </tr></thead>
       <tbody>
-        <tr><td class="rank">1</td><td class="title-cell"><strong>杜兰达尔2:复仇</strong><span class="en-name">Dhurandhar 2</span></td><td class="genre"><span class="tag-genre">动作</span> <span class="tag-genre">惊悚</span></td><td class="boxoffice">1186.3 Cr</td><td class="boxoffice">1850.9 Cr</td></tr>
-        <tr><td class="rank">2</td><td class="title-cell"><strong>边境2</strong><span class="en-name">Border 2</span></td><td class="genre"><span class="tag-genre">战争</span></td><td class="boxoffice">362.8 Cr</td><td class="boxoffice">485.3 Cr</td></tr>
-        <tr><td class="rank">3</td><td class="title-cell"><strong>鬼屋</strong><span class="en-name">Bhooth Bangla</span></td><td class="genre"><span class="tag-genre">恐怖喜剧</span></td><td class="boxoffice">199.2 Cr</td><td class="boxoffice">292.6 Cr</td></tr>
-        <tr><td class="rank">4</td><td class="title-cell"><strong>奥·罗密欧</strong><span class="en-name">O'Romeo</span></td><td class="genre"><span class="tag-genre">剧情</span> <span class="tag-genre">爱情</span></td><td class="boxoffice">83.4 Cr</td><td class="boxoffice">123.1 Cr</td></tr>
-        <tr><td class="rank">5</td><td class="title-cell"><strong>鸡尾酒2</strong><span class="en-name">Cocktail 2</span></td><td class="genre"><span class="tag-genre">浪漫喜剧</span></td><td class="boxoffice">74.3 Cr</td><td class="boxoffice">~95.5 Cr</td></tr>
-        <tr><td class="rank">6</td><td class="title-cell"><strong>青春寄爱</strong><span class="en-name">Hai Jawani Toh Ishq Hona Hai</span></td><td class="genre"><span class="tag-genre">爱情</span> <span class="tag-genre">喜剧</span></td><td class="boxoffice">60.0 Cr</td><td class="boxoffice">84.2 Cr</td></tr>
-        <tr><td class="rank">7</td><td class="title-cell"><strong>丈夫妻子和她2</strong><span class="en-name">Pati Patni Aur Woh Do</span></td><td class="genre"><span class="tag-genre">喜剧</span> <span class="tag-genre">爱情</span></td><td class="boxoffice">59.3 Cr</td><td class="boxoffice">77.8 Cr</td></tr>
-        <tr><td class="rank">8</td><td class="title-cell"><strong>女警花3</strong><span class="en-name">Mardaani 3</span></td><td class="genre"><span class="tag-genre">犯罪</span> <span class="tag-genre">惊悚</span></td><td class="boxoffice">53.0 Cr</td><td class="boxoffice">77.1 Cr</td></tr>
-        <tr><td class="rank">9</td><td class="title-cell"><strong>喀拉拉的故事2</strong><span class="en-name">The Kerala Story 2</span></td><td class="genre"><span class="tag-genre">剧情</span> <span class="tag-genre">惊悚</span></td><td class="boxoffice">52.3 Cr</td><td class="boxoffice">61.7 Cr</td></tr>
-        <tr><td class="rank">10</td><td class="title-cell"><strong>黑天化身(上)</strong><span class="en-name">Krishnavataram Part 1</span></td><td class="genre"><span class="tag-genre">神话</span> <span class="tag-genre">动作</span></td><td class="boxoffice">39.2 Cr</td><td class="boxoffice">46.2 Cr</td></tr>
+        <tr><td class="rank">1</td><td class="title-cell"><strong>杜兰达尔2:复仇</strong><span class="en-name">Dhurandhar 2</span></td><td class="genre"><span class="tag-genre">动作</span><span class="tag-genre">惊悚</span></td><td class="boxoffice">1186.3&nbsp;Cr</td><td class="boxoffice">1850.9&nbsp;Cr</td></tr>
+        <tr><td class="rank">2</td><td class="title-cell"><strong>边境2</strong><span class="en-name">Border 2</span></td><td class="genre"><span class="tag-genre">战争</span></td><td class="boxoffice">362.8&nbsp;Cr</td><td class="boxoffice">485.3&nbsp;Cr</td></tr>
+        <tr><td class="rank">3</td><td class="title-cell"><strong>鬼屋</strong><span class="en-name">Bhooth Bangla</span></td><td class="genre"><span class="tag-genre">恐怖喜剧</span></td><td class="boxoffice">199.2&nbsp;Cr</td><td class="boxoffice">292.6&nbsp;Cr</td></tr>
+        <tr><td class="rank">4</td><td class="title-cell"><strong>奥·罗密欧</strong><span class="en-name">O'Romeo</span></td><td class="genre"><span class="tag-genre">剧情</span><span class="tag-genre">爱情</span></td><td class="boxoffice">83.4&nbsp;Cr</td><td class="boxoffice">123.1&nbsp;Cr</td></tr>
+        <tr><td class="rank">5</td><td class="title-cell"><strong>鸡尾酒2</strong><span class="en-name">Cocktail 2</span></td><td class="genre"><span class="tag-genre">浪漫喜剧</span></td><td class="boxoffice">74.3&nbsp;Cr</td><td class="boxoffice">~95.5&nbsp;Cr</td></tr>
+        <tr><td class="rank">6</td><td class="title-cell"><strong>青春寄爱</strong><span class="en-name">Hai Jawani Toh Ishq Hona Hai</span></td><td class="genre"><span class="tag-genre">爱情</span><span class="tag-genre">喜剧</span></td><td class="boxoffice">60.0&nbsp;Cr</td><td class="boxoffice">84.2&nbsp;Cr</td></tr>
+        <tr><td class="rank">7</td><td class="title-cell"><strong>丈夫妻子和她2</strong><span class="en-name">Pati Patni Aur Woh Do</span></td><td class="genre"><span class="tag-genre">喜剧</span><span class="tag-genre">爱情</span></td><td class="boxoffice">59.3&nbsp;Cr</td><td class="boxoffice">77.8&nbsp;Cr</td></tr>
+        <tr><td class="rank">8</td><td class="title-cell"><strong>女警花3</strong><span class="en-name">Mardaani 3</span></td><td class="genre"><span class="tag-genre">犯罪</span><span class="tag-genre">惊悚</span></td><td class="boxoffice">53.0&nbsp;Cr</td><td class="boxoffice">77.1&nbsp;Cr</td></tr>
+        <tr><td class="rank">9</td><td class="title-cell"><strong>喀拉拉的故事2</strong><span class="en-name">The Kerala Story 2</span></td><td class="genre"><span class="tag-genre">剧情</span><span class="tag-genre">惊悚</span></td><td class="boxoffice">52.3&nbsp;Cr</td><td class="boxoffice">61.7&nbsp;Cr</td></tr>
+        <tr><td class="rank">10</td><td class="title-cell"><strong>黑天化身(上)</strong><span class="en-name">Krishnavataram Part 1</span></td><td class="genre"><span class="tag-genre">神话</span><span class="tag-genre">动作</span></td><td class="boxoffice">39.2&nbsp;Cr</td><td class="boxoffice">46.2&nbsp;Cr</td></tr>
       </tbody>
     </table>
   </div>
-  <p style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem"><sup><a href="#cite-13">[13]</a></sup><sup><a href="#cite-14">[14]</a></sup> 数据来自Koimoi宝莱坞(印地语)榜单,截至2026年6月26日。部分新片评分数据待更新。</p>
-</section>
-
-<!-- ===== Genre Analysis ===== -->
-<section>
-  <h2 style="font-size:1.4rem;margin-bottom:1rem">类型趋势分析</h2>
-  <p>纵观六国榜单,<mark class="key">动画</mark>是最具全球号召力的品类——《超级马力欧银河大电影》《玩具总动员5》《疯狂动物城2》同时出现在多个国家榜单中。本土头部动画(中国《镖人》《熊出没》、日本《柯南》《哆啦A梦》、法国《长尾豹马修》)在本国市场同样强势。</p>
-  <p><mark class="key">科幻</mark>作为跨文化通用品类,《挽救计划》《阿凡达3》在多国上榜。<mark class="key">动作/惊悚</mark>则是印度和韩国市场的本土强项,《杜兰达尔2》和《群体》均在本土创造现象级票房。传记片《迈克尔》因迈克尔·杰克逊的全球影响力,同时登上美国、日本、法国三国榜单。</p>
-
-  <figure class="chart-figure">
-    <figcaption>各国票房冠军品类分布</figcaption>
-    <div id="chart-genres" style="width:100%;height:320px"></div>
-  </figure>
+  <p class="section-note">数据来自Koimoi宝莱坞(印地语)榜单,截至2026年6月26日。部分新片评分数据待更新。</p>
 </section>
 
 <!-- ===== Sources ===== -->
@@ -551,8 +605,40 @@ sup a:hover { text-decoration: underline; }
 
 </div>
 
-<script src="./_shared/js/echarts.min.js"></script>
-<script src="assets/charts.js"></script>
+<!-- ===== Back to Top Button ===== -->
+<button class="back-top" id="backTop" aria-label="回到顶部" type="button">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 19V5M5 12l7-7 7 7"/>
+  </svg>
+</button>
+
+<script>
+(function() {
+  var btn = document.getElementById('backTop');
+  var ticking = false;
+
+  function toggleBtn() {
+    if (window.scrollY > 400) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      window.requestAnimationFrame(toggleBtn);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  btn.addEventListener('click', function() {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+  });
+})();
+</script>
 
 </body>
 </html>
